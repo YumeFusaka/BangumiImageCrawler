@@ -25,17 +25,16 @@ public class GalGameServiceImpl extends ServiceImpl<GalGameMapper, GalGame> impl
         queryWrapper.eq("subject_id", subjectId);
         List<GalGame> galGames = galGameMapper.selectList(queryWrapper);
         for(GalGame galGame:galGames){
-            if(galGame.getUrl()!=null)
+            if(galGame.getImgUrl()!=null)
                 continue;
-            galGame.setUrl(url);
+            galGame.setImgUrl(url);
             galGameMapper.update(galGame,new UpdateWrapper<GalGame>().eq("id",galGame.getId()));
         }
     }
 
     @Override
     public List<GalGame> getNotUrlGalGame() {
-
-        QueryWrapper<GalGame> queryWrapper = new QueryWrapper<GalGame>().isNull("url");
+        QueryWrapper<GalGame> queryWrapper = new QueryWrapper<GalGame>().isNull("img_url");
         return galGameMapper.selectList(queryWrapper);
     }
 }
